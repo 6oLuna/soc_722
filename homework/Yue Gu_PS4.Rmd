@@ -1,0 +1,232 @@
+---
+title: "Yue Gu_PS4"
+Author: "Yue Gu"
+output: html_document
+---
+```{r}
+library(tidyverse)
+library(ggplot2)
+library(dplyr)
+```
+
+```{r}
+deck <- tibble(
+  # tibble is a more flexible data.frame
+  card = rep(
+    c("ace",
+      "deuce",
+      "three",
+      "four",
+      "five",
+      "six",
+      "seven",
+      "eight",
+      "nine",
+      "ten",
+      "jack",
+      "queen",
+      "king"
+    ),4),
+  suit =
+    rep(c(
+      "diamonds", 
+      "hearts", 
+      "clubs", 
+      "spades"),
+        each = 13),
+  color = rep(c("red", 
+                "black"),
+              each = 26)
+)
+
+glimpse(deck)
+```
+
+
+## Question 1
+
+1)
+```{r}
+pr_black <- deck |> 
+  filter(color == "black") |> 
+  nrow()/nrow(deck)
+
+pr_red <- deck |> 
+  filter(color == "red") |> 
+  nrow()/nrow(deck)
+# Two draws mean two subsets, then use multiply the probability of each event.
+pr_black*pr_red
+```
+The probability of getting one black card first and then one red card in two draws with replacement is 0.25.
+
+2)
+```{r}
+pr_king <- deck |> 
+  filter(card == "king") |> 
+  nrow()/nrow(deck)
+
+pr_ace <- deck |> 
+  filter(card == "ace") |> 
+  nrow()/nrow(deck)
+# One draw means add up the probabilities of possible outcomes.
+pr_king + pr_ace
+```
+The probability of getting one king or one ace in a single draw is 0.1538462.
+
+3)
+```{r}
+# Two aces in two draws with replacement mean one ace in both of the draw, in which case order does not matter.
+pr_ace * pr_ace
+```
+The probability of getting two aces in two draws with replacement is 0.00591716.
+
+## Question 2
+1)
+```{r}
+# Sample(n) in R is without replacement by default
+random_hand <- deck |> 
+  sample_n(5, replace=FALSE)
+random_hand
+```
+An example of five randomly sampled hands is as above.
+
+2) 
+```{r}
+# They're asking about the total number of different hands one could draw successively from the same deck, so all these hands are equally likely and we are counting the number of ways to choose 5 cards out of 52 cards without replacement and without distinguishing between the different orders in which they could be chosen.
+  n <- 52
+  k <- 5
+  n_hands <- choose(n,k)
+  n_hands
+# This one doesn't have to pull data from deck, so no need to use pipe operators.
+```
+The total number of different hands one could draw in Poker is 2598960.
+
+## Question 3
+```{r}
+# First choose the suit that will have 2 cards in a total of 4 suits
+n <- 4
+k <- 1 
+n_2_suits <- choose(n,k)
+
+# Then choose the 2 cards from that suit which has 13 cards
+n <- 13
+k <- 2 
+n_2_cards <- choose(n,k)
+
+# Next, choose 1 card from each of the the remaining 3 suits
+n <- 13
+k <- 1 
+n_1_cards_1 <- choose(n,k)
+n_1_cards_2 <- choose(n,k)
+n_1_cards_3 <- choose(n,k)
+
+# Calculate the total number of drawing the particular type of hands
+n_hands_each_suit_represented <- n_2_suits*n_2_cards*n_1_cards_1*n_1_cards_2*n_1_cards_3
+
+# Calculate the probability by dividing the number of drawing the particular type of hands by the total number of different hands
+n_hands_each_suit_represented/n_hands
+```
+The probability that each suit is represented in a hand is 0.2637455.
+
+## Question 4
+```{r}
+# The cases where one gets at least one Ace in one 5-card hand vary much, so we could calculate the complement of the event, that is the probability of getting no aces in a 5-card hand.
+n <- 48
+k <- 5 
+n_no_aces <- choose(n,k)
+pr_no_ace <- n_no_aces/n_hands
+1 - pr_no_ace
+```
+The probability of getting at least one Ace in one 5-card hand is 0.341158.
+
+## Question 5
+```{r}
+# A binomial coecient counts the number of subsets of a certain size for a set, such as the number of ways to choose a committee of size k from a set of n people. Sets and subsets are by definition unordered, e.g., {3, 1, 4} = {4, 1, 3}, so we are counting the number of ways to choose k objects out of n, without replacement and without distinguishing between the different orders in which they could be chosen.
+
+#For any nonnegative integers k and n, the binomial coecient nCk, read as “n choose k”. For k<=n, we have factorial(n)/(factorial(n-k)*factorial(k)).
+
+# So in this case, we'd like to select 2 people from 6 employees to form a committee without replacement and the order of choosing them does not matter. 
+
+choose(6,2)
+
+```
+Thus we get 15 different combinations, same as in the stackoverflow answer.
+
+## Question 6
+1)
+```{r}
+df <- tibble(
+  id   = 1:6,
+  name = c('Alice', 'Bob', 'Charlie', 'Diane', 'Fred', 'Jenny')
+)
+
+df_pairs <- df %>% 
+  rename(id1 = id, name1 = name) %>% 
+  crossing(df %>% 
+             select(id2 = id, name2 = name)) %>%
+  
+# If there is only one person for either position, and either position is different, it means the order matters in combination. Thus the only invalid pairs would be when one person is matched with oneself, so we need to exclude the cases where id1 corresponds to id2 using filter().
+  
+  filter(id1 != id2) %>%
+  unite(id, id1, id2) %>%
+  unite(name, name1, name2)
+
+df_pairs
+```
+2)
+```{r}
+# Imagine when we choose one person for the president position from 6 employees, we have 6 options. Then when we move to choose one person for the vice-president position, we have 5 options. By assumption, all of these possibilities are equally likely, so the naive definition of probability applies. Thus, by the multiplication rule, there are 6*5 = 30 possibilities.
+prod(6:5)
+
+# Or we could refer to what we did in Question 5, we adjust for overcounting, dividing by 6!/(4!*2!) according to the Binomial coefficient, given the order does not matter. So when the order matters, we don't have to adjust for overcounting. Thus, the possibilities are calculated as follows:
+
+factorial(6)/factorial(4)
+
+```
+
+## Question 7
+```{r}
+# Adding set.seed(random number) at first if you want to retain the same sample data in the output file (the random number in brackets means which row we start)
+set.seed(6)
+dice_1 <- replicate(1000, sample(6, 1, replace = TRUE, prob = c(1/6,1/6,1/6,1/6,1/6,1/6)))
+  dice_1
+# Use as.data.drame() or tibble() to turn the vector into a dataframe so that it could be plotted.
+df_dice_1 <- as.data.frame(dice_1)
+# Have a look at the dataframe to make sure what the variable's name is
+df_dice_1
+  summary_df_dice_1 <- df_dice_1 |> 
+  summarize(mean = mean(dice_1))
+summary_df_dice_1
+# The average value for dice 1 based on 1000 samples is 3.483.
+ggplot(data = df_dice_1, mapping = aes(x = dice_1)) +
+  geom_bar()
+```
+
+```{r}
+set.seed(6)
+dice_2 <- replicate(1000, sample(6, 1, replace = TRUE, prob = c(1/12,1/12,1/12,1/12,1/6,1/2)))
+  dice_2
+df_dice_2 <- as.data.frame(dice_2)
+# To make the output html file more reader-friendly, I chose not to display the dataframe since here.
+summary_df_dice_2 <- df_dice_2 |> 
+  summarize(mean = mean(dice_2))
+summary_df_dice_2
+# The average value for dice 2 based on 1000 samples is 4.665.
+ggplot(data = df_dice_2, mapping = aes(x = dice_2)) +
+  geom_bar()
+```
+
+```{r}
+set.seed(6)
+dice_3 <- replicate(1000, sample(6, 1, replace = TRUE, prob = c(1/12,1/12,1/12,1/12,1/3,1/3)))
+  dice_3
+df_dice_3 <- as.data.frame(dice_3)
+# To make the output html file more reader-friendly, I chose not to display the dataframe since here.
+summary_df_dice_3 <- df_dice_3 |> 
+  summarize(mean = mean(dice_3))
+summary_df_dice_3
+# The average value for dice 3 based on 1000 samples is 4.478.
+ggplot(data = df_dice_3, mapping = aes(x = dice_3)) +
+  geom_bar()
+```
+
