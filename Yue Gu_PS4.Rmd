@@ -1,0 +1,304 @@
+---
+title: "Yue Gu_PS4"
+author: "Yue Gu"
+output: html_document
+---
+## Question 1
+a)
+$$ P(\text{One speaks Spanish | One is from South America}) $$
+b)
+$$ P(\text{One is from South America | One speaks Spanish}) $$
+c)
+  I think the probability that a person speaks Spanish given that they are from South America would be higher than the probability that a person is from South America given that they speak Spanish. 
+
+  Because there are many countries in central America, Europe, and Africa, making up for a large world population, also speaking Spanish as their official or national language. In addition, there are a lot of nonnative speaker of Spanish around the globe who learn and use Spanish despite countries. By contrast, only 4 out of 14 South American countries don't speak Spanish. So it is fair to say the probability of one comes from South America is smaller than the probability of one speaks Spanish. 
+
+  Let A be the event that one speaks Spanish, and B be the event that one comes from South America. Since $$P(A|B)=P(A,B)/P(B)$$,$$P(B|A)=P(A,B)/P(A)$$, when $$P(B)<P(A)$$, $$P(A|B)>P(B|A)$$. 
+
+  Therefore, the probability that a person speaks Spanish given that they are from South America is higher than the probability that a person is from South America given that they speak Spanish.
+
+d) Let A be the event that one speaks Spanish, and B be the event that one comes from South America. 
+
+  The probability that someone speaks Spanish given that they are from South America can be denoted by $$P(A|B)$$ that equals $\frac{P(A,B)}{P(B)}$.
+  
+  
+## Question 2
+a)
+```{r}
+library(DiagrammeR)
+```
+
+```{r}
+library(tidyverse)
+```
+
+```{r}
+# Create our visualization
+tree <-
+    create_graph() %>% # initiate graph
+    add_n_nodes(
+      n = 6, 
+      type = "path",
+      label = c("START", "B", "G", "G", "B", "G"), # Labels for each node
+      node_aes = node_aes(
+        shape = "circle",
+        height = 1,
+        width = 1,
+        x = c(0, 3, 3, 6, 6, 6), # Just the heights of each node (so it looks like a tree)
+        y = c(0, 2, -2, 3, -1, -3), 
+        fill = c("white", "blue", "green", "pink", "blue", "green"))) %>% 
+    add_edge(
+      from = 1,
+      to = 2,
+      edge_aes = edge_aes(
+        label = "0.5",
+        color = "red"
+      )) %>% 
+  add_edge(
+      from = 1,
+      to = 3,
+      edge_aes = edge_aes(
+        label = "0.5", 
+        color = "red"
+      )) %>% 
+  add_edge(
+      from = 2,
+      to = 4,
+      edge_aes = edge_aes(
+        label = "0.5",
+        color = "red"
+      )) %>% 
+  add_edge(
+      from = 3,
+      to = 5,
+      edge_aes = edge_aes(
+        label = "0.5",
+        color = "red"
+      )) %>% 
+  add_edge(
+      from = 3,
+      to = 6,
+      edge_aes = edge_aes(
+        label = "0.5",
+        color = "red"
+      )) 
+render_graph(tree)
+```
+Yes, my result matches the example on the book. P (both girls|at least one girl) = 1/3 = $\frac{1}{3}$
+
+b)
+```{r}
+# Create our visualization
+tree <-
+    create_graph() %>% # initiate graph
+    add_n_nodes(
+      n = 4, 
+      type = "path",
+      label = c("START", "G", "G", "B"), # Labels for each node
+      node_aes = node_aes(
+        shape = "circle",
+        height = 1,
+        width = 1,
+        x = c(0, 3, 6, 6), # Just the heights of each node (so it looks like a tree)
+        y = c(0, 0, 2, -2), 
+        fill = c("white", "brown", "brown", "blue"))) %>% 
+    add_edge(
+      from = 1,
+      to = 2,
+      edge_aes = edge_aes(
+        label = "1",
+        color = "purple"
+      )) %>% 
+  add_edge(
+      from = 2,
+      to = 3,
+      edge_aes = edge_aes(
+        label = "0.5", 
+        color = "purple"
+      )) %>% 
+  add_edge(
+      from = 2,
+      to = 4,
+      edge_aes = edge_aes(
+        label = "0.5",
+        color = "purple"
+  
+      )) 
+render_graph(tree)
+```
+The arrows of the branches that have the elder child as a girl is colored in purple, and the circles of the branch that have two girls is colored in brown.
+
+Yes, my result matches the example on the book. P (both girls|elder is a girl) = 1/2 = $\frac{1}{2}$
+
+## Question 3
+$\frac{P(A)}{P(A^c)}$ is the prior odds in favor of event A (with positive
+probability) before updating based on the evidence observed.
+
+$\frac{P(A|B)}{P(A^c|B)}$ is the posterior odds after updating based on the evidence that event B has occurred.
+
+$\frac{P(B|A)}{P(B|A^c)}$ is the likelihood ratio, denoting the probability that event A would be expected given that event B occurs compared to the probability that event A would be expected without being conditioned on event B.
+
+It turns out that Likelihood ratios are often used in medical testing to interpret diagnostic tests. LR gives the probability of correctly predicting a disease in ratio to the probability of incorrectly predicting the disease. It indicates how much the probability of one's having a suspected disease is increased or decreased given a diagnostic test result. It makes sense and relates to what is defined in Blitzstein and Hwang's book. This shows an example of how conditional probability acts as good measures to enhance the accuracy of a prediction.
+
+## Question 4
+a) 
+
+## Solution 1
+```{r}
+# When you estimate the number won't be big, just try a few input values successively several times to see if the considered equation is TRUE pr FALSE.
+
+fair_coin <- 1/2
+biased_coin <- 3/4
+heads <- 4
+
+{fair_coin^heads * 1/2 / (fair_coin^heads * 1/2 + biased_coin^heads * 1/2)} < 0.1
+```
+```{r}
+fair_coin <- 1/2
+biased_coin <- 3/4
+heads <- 5
+
+{fair_coin^heads * 1/2 / (fair_coin^heads * 1/2 + biased_coin^heads * 1/2)} < 0.1
+```
+```{r}
+fair_coin <- 1/2
+biased_coin <- 3/4
+heads <- 6
+
+{fair_coin^heads * 1/2 / (fair_coin^heads * 1/2 + biased_coin^heads * 1/2)} < 0.1
+```
+
+## Solution 2
+```{r}
+# Using for() function
+fair_coin <- 1/2
+biased_coin <- 3/4
+
+for (n in 1:100) {
+    if ((fair_coin^n * 1/2 / (fair_coin^n * 1/2 + biased_coin^n * 1/2)) < 0.1) {
+      print(n)
+    } else {
+      print("False")
+    }
+}
+```
+Therefore, 6 heads or more in a row are necessary for the probability that we are flipping a fair coin to dip below 10%.
+
+b)
+```{r}
+# Using for() function
+fair_coin <- 1/2
+biased_coin <- 3/4
+
+for (n in 1:100) {
+    if ((fair_coin^n * 1/2 / (fair_coin^n * 1/2 + biased_coin^n * 1/2)) < 0.05) {
+      print(n)
+    } else {
+      print("False")
+    }
+}
+```
+Therefore, 8 heads or more in a row are necessary for the probability that we are flipping a fair coin to dip below 10%.
+
+c)
+```{r}
+fair_coin <- 1/2
+biased_coin <- 3/4
+tails <- 3
+
+fair_coin^tails * 1/2 / (fair_coin^tails * 1/2 + biased_coin^tails * 1/2)
+```
+
+So the probability that we are flipping the fair coin given that we have seen three Tails in a row is about 23%.
+
+## Question 5
+a) The specificity of a test is the true negative rate of a test, indicating the proportion of samples revealing a negative result that are genuinely negative using the test in question. It tells the probability that a test correctly identifies negative samples.
+
+Let D be the event that one has a disease and T be the event that he/she tests positive.The specificity of a test is denoted by $$ P(T^c|D^c) $$.
+
+b) The sensitivity of a test is the true positive rate, indicating the proportion of samples revealing a positive result which are genuinely positive using the test in question. It tells the probability that a test correctly identifies positive samples.
+
+Let D be the event that one has a disease and T be the event that he/she tests positive. The sensitivity of a test is denoted by $$ P(T|D) $$.
+
+c) 
+```{r}
+sensitivity <- 0.9
+disease <- 0.01
+
+sensitivity*disease/(sensitivity*disease+(1-sensitivity)*(1-disease))
+```
+
+So there is a approximate 8.3% chance that Fred has conditionitis, given that he tested positive.
+
+d)
+```{r}
+sensitivity_B <- 0.95
+disease_B <- 0.05
+
+sensitivity_B*disease_B/(sensitivity_B*disease_B+(1-sensitivity_B)*(1-disease_B))
+```
+
+So the probability that Andrea has the disease given that she tested positive is 50%.
+
+e)
+```{r}
+tree <-
+    create_graph() %>% # initiate graph
+    add_n_nodes(
+      n = 7, 
+      type = "path",
+      label = c("10000 People", "9500 People", "500 People", "475 People", "9025 People", "475 People", "25 People"), # Labels for each node
+      node_aes = node_aes(
+        shape = "circle",
+        height = 1,
+        width = 1,
+        x = c(0, 3, 3, 6, 6, 6, 6), # Just the heights of each node (so it looks like a tree)
+        y = c(0, 2, -2, 3, 1, -3, -1))) %>% 
+    add_edge(
+      from = 1,
+      to = 2,
+      edge_aes = edge_aes(
+        label = "healthy"
+      )) %>% 
+  add_edge(
+      from = 1,
+      to = 3,
+      edge_aes = edge_aes(
+        label = "diseased"
+      )) %>% 
+  add_edge(
+      from = 2,
+      to = 4,
+      edge_aes = edge_aes(
+        label = "test +"
+      )) %>% 
+  add_edge(
+      from = 2,
+      to = 5,
+      edge_aes = edge_aes(
+        label = "test -"
+      )) %>% 
+  add_edge(
+      from = 3,
+      to = 6,
+      edge_aes = edge_aes(
+        label = "test +"
+      )) %>% 
+  add_edge(
+      from = 3,
+      to = 7,
+      edge_aes = edge_aes(
+        label = "test -"
+      )) 
+render_graph(tree)
+```
+
+## Question 6
+Another example of the prosecutor’s fallacy: 
+
+If a woman's blood type matches that of a sample found at a crime scene. Suppose the blood type is possessed by only 10% of the population. A prosecutor then argues that given the chances of a blood type match are just ten in one hundred, there is only a 10% chance that the accused is innocent and concludes that the probability that the woman is guilty is 90%.
+
+This reasoning is flawed since the prosecutor overlooks the prior probability that the woman is a random innocent person rather than the main suspect being selected based on robust evidence discovered prior to the blood test.
+
+If the woman comes from a town of 1000 residents where the crime occurred, each of the residents is equally likely to have committed the crime. Then 100 people living there possess the perpetrator's blood type. Therefore, the conditional probability that the woman is guilty is only 1%, which is much less than the 90% argued by the prosecutor.
+
