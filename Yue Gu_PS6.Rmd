@@ -1,0 +1,64 @@
+---
+title: "Yue Gu_PS6"
+author: "Yue Gu"
+output: html_document
+---
+
+## Exercise 1.1
+a) Prior information for Leslie’s chocolate milk story was: dairy cows produced milk; pure milk mostly cme from white and black cows locally; diary cows had many colors including brownish breeds.
+
+b) The data that Leslie weighed against that incoming information in her chocolate milk story was chocolate syrup can be added into milk to make chocolate milk.
+
+c) Updated conclusion from the chocolate milk story was chocolate milk does not came from brown cows, instead it was made with pure milk and chocolate syrup.
+
+## Exercise 1.2
+a) Everthing happens for a reasonin, what we can do is to test our hypotheses given the observed phenomena.
+b) Don't rush to make conlusions based on one observation since we never know the odds off a coincidence or an exception.
+
+## Exercise 1.3
+```{r pressure, echo=FALSE, fig.cap="A caption", out.width = '100%'}
+knitr::include_graphics("image/diagram_1.png")
+```
+
+## Exercise 1.4
+```{r pressure, echo=FALSE, fig.cap="A caption", out.width = '100%'}
+knitr::include_graphics("image/diagram_2.png")
+```
+
+## Exercise 1.5
+```{r pressure, echo=FALSE, fig.cap="A caption", out.width = '100%'}
+knitr::include_graphics("image/diagram_3.png")
+```
+
+## Exercise 1.6
+There are several data scientist openings at a much-ballyhooed company. Having read the job description, you know for a fact that you are qualified for the position: this is your data. Your goal is to ascertain whether you will actually be offered a position: this is your hypothesis.
+
+a) From the perspective of someone using frequentist thinking, in testing the hypothesis that I’ll be offered the position, a question like this is to be answered: what’s the chance that I find that I am qualified for the position of data scientist based on the job description if it turns out that I will not actually be offered a position in the company?
+
+b)Someone using Bayesian thinking would ask a question like: given that I found that I am qualified for the position of data scientist according to the job description, what’s the chance that I will actually be offered a position in the company?
+
+c) I'd rather have the answer to the Bayesian question because it’s more natural to study the uncertainty of a yet-unproven hypothesis (whether I'll be offered the position) than the uncertainty of data we have already observed (I am qualified for the position according to the job description). After all, it's not the chance that I won't be offered the job despite my observation of the job description, but the chance that I'll get the job given my finding from the job description that matters to me as a job applicant. What I care about is the conditional probability that I will get the job.
+
+## Exercise 1.7
+a) Identify a topic that you know about (eg: a sport, a school subject, music).
+
+Video games
+
+b) Identify a hypothesis about this subject.
+
+Advertising will become increasingly popular as a form of video game monetization.
+
+c) How would your current expertise inform your conclusion about this hypothesis?
+
+A research conducted by Google which shows that both paying users and non-paying users hope to obtain resources and special props by watching in-game advertisements. Also given the fact that games relying on advertisement for returns usually are free-to-play or are cheaper than other games as their production cost has already been subsidized, the relative plausibility that game manufacturers are willing to employ the advertising-based mode which will attract and retain more players is high.
+
+d) Which framework are you employing here, Bayesian or frequentist?
+
+Bayesian framework.
+
+## Exercise 1.8
+a) 
+We all continuously update our knowledge about the world as we accumulate lived experiences or collect data. Bayesian knowledge building process of acknowledging our preconceptions, using data to update our knowledge, and repeating allows the posterior to balance out the prior and data which indicates the probability that measures the relative plausibility of an event. We can apply this same Bayesian process to rigorous research inquiries in which case we naturally interpret new data given prior information based on previous research and experience, weighing both in developing our updated or posterior information. We continue this process to refine the information as we gather new evidence. When we implement this philosophy in a rigorous data analysis, it can do posterior simulation and analysis. By incorporating Bayesian thinking into the formal model of variables of interest Y, we could monitor the behavior of Y and understand the relationship between Y and a set of potential predictor variables. This all makes Bayesian statistics useful methodologies and tools of data analysis.
+
+b) 
+Bayesian and frequentist statistics share a common goal of using the observed data to assess the hypothesis one has, to learn from data about the world around us. Both Bayesian and frequentist analyses use data to fit models, make predictions, and evaluate hypotheses. When working with the same data, they would typically produce a similar set of conclusions.
