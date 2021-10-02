@@ -1,0 +1,595 @@
+---
+title: "Yue Gu_PS7"
+author: "Yue Gu"
+date: "9/24/2021"
+output: html_document
+---
+## Exercise 2.1
+a) $$P(B|A)>P(B)$$
+
+It is more likely for one to enjoy Nicole Dennis-Benn’s newest novel if one enjoyed reading her first novel than since event A increases the probability that one likes her writing style which may make it more likely that one will also enjoy Benn’s newest novel.
+
+b) $$P(B|A)<P(B)$$
+
+If event A that it’s 0 degrees Fahrenheit in Minnesota on a January day occurs, it decreases the probability that event B occurs since it is less likely for the temperature to rise from 0 to 60 degrees over one day in winter.
+
+c) $$P(B|A)>P(B)$$
+
+If event A that the authors only got 3 hours of sleep last night occurs, it increases the probability that event B occurs since it is more likely for the authors to make typos in their writing if they stayed up late last night (due to lack of sleep).
+
+d) $$P(B|A)>P(B)$$
+
+If event A that one's friend includes three hashtags in their tweet occurs, it increases the probability that event B occurs since it is more likely for the tweet with hashtags to get retweeted than the one without hashtags (tweets with hashtags tend to increase the tweets' exposure, thus gaining more engagement including clicks, replies, and retweets)
+
+## Exercise 2.2
+
+a) 73% of people that drive 10 miles per hour above the speed limit get a speeding ticket.
+
+$$P(B|A)=0.73$$
+b) 20% of residents drive 10 miles per hour above the speed limit.
+
+$$P(A)=0.2$$
+c) 15% of residents have used R.
+
+$$P(D)=0.15$$
+d) 91% of statistics students at the local college have used R.
+
+$$P(D|C)=0.91$$
+e) 38% of residents are Minnesotans that like the music of Prince.
+
+$$P(E∩F)=P(E)*P(F)=0.38$$
+f) 95% of the Minnesotan residents like the music of Prince.
+
+$$P(E|F)=0.95$$
+## Exercise 2.3
+
+a) Y here is not Binomial because Y, the number of babies born between 9am and 10am tomorrow, does not depend upon the value of the average value of babies born each hour at the certain hospital which is summarized from previous data (numbers of babies born in the past does not influence the number of newborns tomorrow).
+
+b) Y here is Binomial. The probability model of Y is specified by a probability mass function f(y). This pmf defines the probability of any given outcome y: f(y)=P(Y=y). Y inherently depends upon the probability of Tulips planted in fall that bloom in the next spring which is 0.9. So the probability of blooming for each tulip is 0.9. One plants 27 tulips in total. Thus the binomial model is:
+
+$$Y|0.9∼Bin(27,0.9), y∈{0,1,2,…,27}$$ 
+
+c) Y here is not Binomial, instead Y denotes the number of trials. It is the number of successes obtained by Alaska in the Y independent trials that is binomial, conditioned upon the 17% probability of Alaska's succeeding in tryouts for the television show Ru Paul’s Drag Race.
+
+d) Y here is not Binomial because we don't know what Y depends on, namely the probability of Henry's being late to my lunch date each time.
+
+e) Y here is not Binomial, it is the probability that one's friends will throw one a surprise birthday party. The random variable which depends upon the probability Y is not denoted.
+
+f) Y here is Binomial. The probability model of Y is specified by a probability mass function f(y). This pmf defines the probability of any given outcome y: f(y)=P(Y=y). Y inherently depends upon the probability of one showing up at my party which is 0.8. So the probability of showing up for each person is 0.8 and I invited 60 people in total. Thus the binomial model is:
+
+$$Y|0.8∼Bin(60,0.8), y∈{0,1,2,…,60}$$ 
+## Exercise 2.4
+```{r}
+# Let V be the event that vampires exist, thus P(V)=0.05, P(~V)=1-0.05=0.95
+
+# Let D be the event that someone can sparkle like a diamond, thus P(D|V)=0.7, P(D|~V)=0.03
+
+# Therefore, P(V|D)= P(V)*L(V|D)/(L(V|D)*P(V)+L(~V|D)*P(~V))
+
+0.05*0.7/(0.7*0.05+0.03*0.95)
+```
+
+Given that Edward sparkled like a diamond, the probability that vampires exist is about 0.55.
+
+## Exercise 2.5
+A local arboretum contains a variety of tree species, including elms, maples, and others. Unfortunately, 18% of all trees in the arboretum are infected with mold. Among the infected trees, 15% are elms, 80% are maples, and 5% are other species. Among the uninfected trees, 20% are elms, 10% are maples, and 70% are other species. In monitoring the spread of mold, an arboretum employee randomly selects a tree to test.
+
+a) The prior probability that the selected tree has mold is 0.18.
+
+b) 
+```{r}
+# Let I be the event that the tree is infected with mold, let E be the event that the tree is elms, let M be the event that the tree is maple, let O be the event that the tree is other species, thus P(I)=0.18, P(E|I)=0.15, P(M|I)=0.8, P(O|I)=0.05, P(~I)=1-0.18=0.82, P(E|~I)=0.2, P(M|~I)=0.1, P(O|~I)=0.7.
+
+# Therefore, P(M)=P(M|I)*P(I)+P(M|~I)*P(~I)
+0.8*0.18+0.1*0.82
+```
+The probability that the employee would have selected a maple is 0.226.
+
+c) 
+```{r}
+# P(I|M)=L(I|M)*P(I)/P(M)
+0.8*0.18/0.226
+```
+The posterior probability that the selected maple tree has mold is about 0.637.
+
+d) Though maples does not make up for the majority of the trees, it makes up for the majority of the trees having mold. So the probability that the selected tree has mold increases in light of new data that the selected tree is maple.
+
+## Exercise 2.6 
+The probability that Sandra will like a restaurant is 0.7. Among the restaurants that she likes, 20% have five stars on Yelp, 50% have four stars, and 30% have fewer than four stars. What other information do we need if we want to find the posterior probability that Sandra likes a restaurant given that it has fewer than four stars on Yelp?
+```{r}
+# Let L be the event that Sandra will like a restaurant, let V be the event that the restaurant has five stars on Yelp, let U be the event that the restaurant has four stars on Yelp, let F be the event that the restaurant has fewer than four stars on Yelp, thus P(L)=0.7, P(V|L)=0.2, P(U|L)=0.5, P(F|L)=0.3, P(~L)=1-0.7=0.3.
+
+# The posterior probability that Sandra likes a restaurant given that it has fewer than four stars on Yelp can be denoted by P(L|F)
+
+# P(L|F)=P(F|L)*P(L)/P(F)=0.3*0.7/P(F)=0.3*0.7/(P(F|L)*P(L)+P(F|~L)*P(~L))=0.3*0.7/(0.3*0.7+P(F|~L)*0.3)
+```
+We need the probability that the restaurant has fewer than four stars on Yelp given Sandra does not like it, namely what percentage the restaurant with fewer than four stars on Yelp accounts for the restaurants that Sandra does not like, to find the posterior probability that Sandra likes a restaurant given that it has fewer than four stars on Yelp. 
+
+## Exercise 2.7
+Matt is on a dating app looking for love. Matt swipes right on 8% of the profiles he views. Of the people that Matt swipes right on, 40% are men, 30% are women, 20% are non-binary, and 10% identify in another way. Of the people that Matt does not swipe right on, 45% are men, 40% are women, 10% are non-binary, and 5% identify in some other way.
+
+a) 
+```{r}
+# Let R be the event that Matt swipes right on the dating app, let M be the event that the profile says man, let W be the event that the profile says woman, let N be the event that the profile says non-binary, let O be the event that the profile is identified in another way, thus P(R)=0.08, P(M|R)=0.4, P(W|R)=0.3, P(N|R)=0.2, P(O|R)=0.1, P(~R)=1-0.08=0.92, P(M|~R)=0.45, P(W|~R)=0.4, P(N|~R)=0.1, P(O|~R)=0.05.
+
+# The probability that a randomly chosen person on this dating app is non-binary can be denoted by P(N)=P(N|R)*P(R)+P(N|~R)*P(~R)
+0.2*0.08+0.1*0.92
+```
+The probability that a randomly chosen person on this dating app is non-binary is 0.108.
+
+b) 
+```{r}
+# The posterior probability that Matt swipes right given that he is looking at the profile of someone who is non-binary can be denoted by P(R|N)=P(N|R)*P(R)/P(N)
+0.2*0.08/0.108
+```
+Given that Matt is looking at the profile of someone who is non-binary, the posterior probability that he swipes right is about 0.148.
+
+## Exercise 2.8 
+a)
+```{r}
+# Let D be the event that flights are delayed, let M be the event that flights depart in the morning, let A be the event that flights depart in the afternoon, let E be the event that flights depart in the evening, thus P(D)=0.15, P(M)=0.3, P(A)=0.3, P(E)=0.4, P(M|D)=0.4, P(A|D)=0.5, P(E|D)=0.1, P(~D)=1-0.15=0.85.
+
+# The probability that Mine's flight will be delayed given that she is on a morning flight can be denoted by P(D|M)=P(M|D)*P(D)/P(M)
+0.4*0.15/0.3
+```
+The probability that Mine's flight will be delayed given that she is on a morning flight is 0.2.
+
+b) 
+```{r}
+# Let D be the event that flights are delayed, let M be the event that flights depart in the morning, let A be the event that flights depart in the afternoon, let E be the event that flights depart in the evening, thus P(D)=0.15, P(M)=0.3, P(A)=0.3, P(E)=0.4, P(M|D)=0.4, P(A|D)=0.5, P(E|D)=0.1, P(~D)=1-0.15=0.85.
+
+# The probability that Alicia’s on a morning flight given that Alicia’s flight is not delayed can be denoted by P(M|~D)
+
+# Since P(M)=P(M|D)*P(D)+P(M|~D)*P(~D), 0.3=0.4*0.15+P(M|~D)*0.85
+
+(0.3-0.4*0.15)/0.85
+```
+The probability that Alicia’s on a morning flight given that Alicia’s flight is not delayed is about 0.282.
+
+## Exercise 2.9 
+a)
+```{r}
+# Let G be the event roommate is in a good mood, let B be the event that roommate is in a bad mood, let Z be the event that roommate had 0 texts yesterday, let M be the event that roommate had 1 to 45 texts yesterday, let H be the event that roommate had more than 45 texts yesterday, thus P(G)=0.4, P(B)=0.6, P(Z|G)=0.05, P(M|G)=0.84, P(H|G)=0.11, P(Z|B)=0.13, P(M|B)=0.86, P(H|B)=0.01.
+
+# Thus, P(Z)=P(Z|G)*P(G)+P(Z|B)*P(B)=0.05*0.4+0.13*0.6, 
+```
+```{r}
+0.05*0.4+0.13*0.6
+```
+```{r}
+# P(M)=P(M|G)*P(G)+P(M|B)*P(B)=0.84*0.4+0.86*0.6, 
+```
+```{r}
+0.84*0.4+0.86*0.6
+```
+```{r}
+# P(H)=P(H|G)*P(G)+P(H|B)*P(B)=0.11*0.4+0.01*0.6
+```
+```{r}
+0.11*0.4+0.01*0.6
+```
+```{r}
+knitr::include_graphics("image/MOOD.png")
+```
+
+b) Today’s a new day. Without knowing anything about the previous day’s text messages, the probability that your roommate is in a good mood is 0.4. This is the prior part of the Bayes’ Rule equation.
+
+c) If they’re in a good mood today, the probability that they received 50 texts yesterday is 0.11. This is the likelihood part of the Bayes’ Rule equation.
+
+d) 
+```{r}
+# The posterior probability that your roommate is in a good mood given that they received 50 text messages yesterday can be denoted by P(G|H)
+
+# P(G|H)=P(H|G)*P(G)/P(H)
+0.11*0.4/0.05
+```
+The posterior probability that your roommate is in a good mood given that they received 50 text messages yesterday is 0.88.
+
+## Exercise 2.10 
+a) 
+```{r}
+# Let R be the event that public middle school and high school students live in rural areas, let U be the event that public middle school and high school students live in urban areas, let L be the event that public middle school and high school students identified as LGBTQ, thus P(R)=0.085, P(U)=0.915, P(L|R)=0.1, P(L|U)=0.105.
+
+# The probability that public middle school and high school students identify as LGBTQ can be denoted by P(L)=P(L|R)*P(R)+P(L|U)*P(U)
+0.1*0.085+0.105*0.915
+```
+The probability that public middle school and high school students identify as LGBTQ is 0.104575.
+
+b) 
+```{r}
+# The probability that public middle school and high school students live in a rural area given that they identify as LGBTQ can be denoted by P(R|L)
+
+# P(R|L)=P(L|R)*P(R)/P(L)
+0.1*0.085/0.104575
+```
+The probability that public middle school and high school students live in a rural area given that they identify as LGBTQ is 0.08128138.
+
+c) 
+```{r}
+# The probability that public middle school and high school students live in a rural area given that they do not identify as LGBTQ can be denoted by P(R|~L)
+
+# P(~L)=1-P(L)=1-0.104575=0.895425
+
+# Since P(R)=P(R|~L)*P(~L)+P(R|L)*P(L)=P(R|~L)*0.895425+0.08128138*0.104575=0.085,
+# P(R|~L)=(0.085-0.08128138*0.104575)0.895425
+(0.085-0.08128138*0.104575)/0.895425
+```
+The probability that public middle school and high school students live in a rural area given that they do not identify as LGBTQ is 0.08543429.
+
+## Exercise 2.11
+a)
+π is a measure of Muhammad's qualification for the data science internships. Given the complexity of job testing, interviewing, and other conditions, π is unknown and can vary or fluctuate over time. So, π is a random variable. Since the application  outcome isn’t predetermined, Y is a random variable that can take any value in  
+{1,2,3,4,5,6}. Further, Y inherently depends upon Muhammad’s qualification for the data science internships π. If π were 0.30, Muhammad’s internship offers Y would tend to be relatively low. If π were 0.50, Muhammad’s getting Y would also tend to be relatively high.
+
+This prior model assumes that π has a discrete set of possibilities: Kasparov’s chances of getting into any given internship is either 0.3, 0.4, or 0.5. It identifies what values π can take and assigns a prior probability to each where these probabilities sum to 1. 
+
+The probability mass function (pmf) f(⋅)which specifies the prior probability of each possible π value. This pmf reflects the prior understanding that Muhammad has the internships' required skills and has prepared for the application, and so will likely get an internship offer. Specifically, this pmf places only a 15% chance on Muhammad’s chances of getting into any given internship jumping to π=0.5, a 60% chance on Muhammad’s chances of getting into any given internship turning to π=0.4, and a 25% chance on his win probability dropping to π=0.3, i.e.f(π=0.5)=0.15, f(π=0.4)=0.60, and f(π=0.3)=0.25.
+
+Random variable Y being the number of internship offers that Muhammad gets in a fixed number of applications, 6. Assume that the applications are independent and that the probability of success in each application is π. Then the conditional dependence of Y on π can be modeled by the Binomial model with parameters 6 and π.
+  
+b) 
+```{r}
+# f(y=4|π=0.3)=6!/(4!*(6-4)!)*(0.3)^4*(1−0.3)^(6-4)
+factorial(6)/(factorial(4)*factorial(2))*(0.3)^4*(0.7)^2
+```
+The probability that Muhammad was offered four of the six internships with his chances of getting into any given internship being π=0.3 is 0.059535.
+
+c) 
+```{r}
+# prior probability of each possible π value: f(π=0.3)=0.25, f(π=0.4)=0.60, f(π=0.5)=0.15
+# Likelihood function of π given Muhammad was offered four of the six internships
+# L(π=0.3|y=4)=f(y=4|π=0.3)=6!/(4!*(6-4)!)*(0.3)^4*(1−0.3)^(6-4) =0.059535
+# L(π=0.4|y=4)=f(y=4|π=0.4)=6!/(4!*(6-4)!)*(0.4)^4*(1−0.4)^(6-4) =0.13824
+factorial(6)/(factorial(4)*factorial(2))*(0.4)^4*(0.6)^2
+# L(π=0.5|y=4)=f(y=4|π=0.5)=6!/(4!*(6-4)!)*(0.5)^4*(1−0.5)^(6-4) =0.234375
+factorial(6)/(factorial(4)*factorial(2))*(0.5)^4*(0.5)^2
+```
+```{r}
+# f(y=4)=f(y=4|π=0.3)*f(π=0.3)+f(y=4|π=0.4)*f(π=0.4)+f(y=4|π=0.5)*f(π=0.5)=0.132984
+0.059535*0.25+0.13824*0.60+0.234375*0.15
+```
+```{r}
+# posterior probability
+# f(π|y=4)=f(π)L(π|y=4)/f(y=4) for π∈{0.3,0.4,0.5}.
+# f(π=0.3|y=4)=f(π)L(π=0.3|y=4)/f(y=4)=0.25*0.059535/0.132984=0.1119214
+0.25*0.059535/0.132984
+# f(π=0.4|y=4)=f(π)L(π=0.4|y=4)/f(y=4)=0.6*0.13824/0.132984=0.6237141
+0.6*0.13824/0.132984
+# f(π=0.5|y=4)=f(π)L(π=0.5|y=4)/f(y=4)=0.15*0.234375/0.132984=0.2643645
+0.15*0.234375/0.132984
+```
+```{r}
+knitr::include_graphics("image/offer.png")
+```
+
+## Exercise 2.12
+
+a) 
+π is a measure of Miles's chances of creating handles that will actually be good enough for a mug. Given the complexity of ceramics and Miles' operation, π is unknown and can vary or fluctuate over time. So, π is a random variable. Since the creation  outcome isn’t predetermined, Y is a random variable that can take any value in {1,2,3,4,5,6,7}. Further, Y inherently depends upon Miles’s chances of creating handles will actually be good enough for a mug, that is π. If π were 0.10, the number of creating handles that will actually be good enough for a mug Y would tend to be relatively low. If π were 0.25, he number of creating handles that will actually be good enough for a mug Y would tend to be relatively high.
+
+This prior model assumes that π has a discrete set of possibilities: Miles’s chances of creating handles that will actually be good enough for a mug is either 0.1, 0.25, or 0.4. It identifies what values π can take and assigns a prior probability to each where these probabilities sum to 1. 
+
+The probability mass function (pmf) f(⋅)which specifies the prior probability of each possible π value. This pmf reflects the prior understanding that Miles has learnt the skills to pull a handle from the ceramics class, so will likely create handles that will actually be good enough for a mug. Specifically, this pmf places only a 20% chance on Miles's chances of creating handles that will actually be good enough for a mug jumping to π=0.1, a 45% chance on Miles' chances of creating handles that will actually be good enough for a mug turning to π=0.25, and a 35% chance on the probability that one of Miles's handles will actually be good enough for a mug dropping to π=0.4, i.e.f(π=0.1)=0.20, f(π=0.25)=0.45, and f(π=0.4)=0.35.
+
+Random variable Y being the number of handles created by Miles that will be good enough for a mug in a fixed number of mug-makings, 7. Assume that the mug-makings are independent and that the probability of success of making a good handle in each mug-making is π. Then the conditional dependence of Y on π can be modeled by the Binomial model with parameters 7 and π.
+
+b) 
+```{r}
+# L(π=0.1|y=1)=f(y=1|π=0.1)=7!/(1!*(7-1)!)*(0.1)^1*(1−0.1)^(7-1)=0.3720087
+factorial(7)/(factorial(1)*factorial(6))*(0.1)^1*(0.9)^6
+# L(π=0.25|y=1)=f(y=1|π=0.25)=7!/(1!*(7-1)!)*(0.25)^1*(1−0.25)^(7-1)=0.3114624
+factorial(7)/(factorial(1)*factorial(6))*(0.25)^1*(0.75)^6
+# L(π=0.4|y=1)=f(y=1|π=0.4)=7!/(1!*(7-1)!)*(0.4)^1*(1−0.4)^(7-1)=0.1306368
+factorial(7)/(factorial(1)*factorial(6))*(0.4)^1*(0.6)^6
+
+#f(y=1)=L(π=0.1|y=1)*f(π=0.1)+L(π=0.25|y=1)*f(π=0.25)+L(π=0.4|y=1)*f(π=0.4)=0.2602827
+0.3720087*0.20+0.3114624*0.45+0.1306368*0.35
+# posterior pmf of π, f(π|y=1)=f(π)L(π|y=1)/f(y=1) for π∈{0.1,0.25,0.4}.
+# f(π=0.1|y=1)=f(π)L(π=0.1|y=1)/f(y=1)=0.2858497
+0.20*0.3720087/0.2602827
+# f(π=0.25|y=1)=f(π)L(π=0.25|y=1)/f(y=1)=0.538484
+0.45*0.3114624/0.2602827
+# f(π=0.4|y=1)=f(π)L(π=0.4|y=1)/f(y=1)=0.1756662
+0.35*0.1306368/0.2602827
+```
+
+c) 
+Given that Miles pulls 7 handles and only 1 of them is good enough for a mug, he has been less confident in his chances of creating handles that will actually be good enough for a mug. Specifically, the posterior model puts larger probabilities on Miles' chances of creating handles that will actually be good enough for a mug being π=0.1 (rising from 0.2 to 0.286) or 0.25 (rising from 0.45 to 0.538) than the prior model does, and puts smaller probability on Miles' chances of creating handles that will actually be good enough for a mug being π=0.4 (dropping from 0.35 to 0.176)  than the prior model does.
+
+d)
+```{r}
+# prior model: f(π=0.1)=0.15, f(π=0.25)=0.15, and f(π=0.4)=0.7
+# Likelihood model: L(π=0.1|y=1)=f(y=1|π=0.1)=7!/(1!*(7-1)!)*(0.1)^1*(1−0.1)^(7-1)=0.3720087
+factorial(7)/(factorial(1)*factorial(6))*(0.1)^1*(0.9)^6
+# L(π=0.25|y=1)=f(y=1|π=0.25)=7!/(1!*(7-1)!)*(0.25)^1*(1−0.25)^(7-1)=0.3114624
+factorial(7)/(factorial(1)*factorial(6))*(0.25)^1*(0.75)^6
+# L(π=0.4|y=1)=f(y=1|π=0.4)=7!/(1!*(7-1)!)*(0.4)^1*(1−0.4)^(7-1)=0.1306368
+factorial(7)/(factorial(1)*factorial(6))*(0.4)^1*(0.6)^6
+
+#f(y=1)=L(π=0.1|y=1)*f(π=0.1)+L(π=0.25|y=1)*f(π=0.25)+L(π=0.4|y=1)*f(π=0.4)=0.1939664
+0.3720087*0.15+0.3114624*0.15+0.1306368*0.7
+
+# posterior pmf of π, f(π|y=1)=f(π)L(π|y=1)/f(y=1) for π∈{0.1,0.25,0.4}.
+# f(π=0.1|y=1)=f(π)L(π=0.1|y=1)/f(y=1)=0.2876854
+0.15*0.3720087/0.1939664
+# f(π=0.25|y=1)=f(π)L(π=0.25|y=1)/f(y=1)=0.2408632
+0.15*0.3114624/0.1939664
+# f(π=0.4|y=1)=f(π)L(π=0.4|y=1)/f(y=1)=0.4714516
+0.7*0.1306368/0.1939664
+```
+Kris’ posterior model puts considerably larger chances on Miles' chances of creating handles that will actually be good enough for a mug being π=0.4 than Miles’ does. Miles’ instructor Kris was more confident in Miles' ceramics skills than Miles himself did. Kris’ posterior model puts smaller chances on Miles' chances of creating handles that will actually be good enough for a mug being π=0.25 than Miles’ does. Kris’ posterior model puts similar chances on Miles' chances of creating handles that will actually be good enough for a mug being π=0.1 as Miles’ does. Yet both Kris’ and Miles’ posterior models put larger probabilities on Miles' chances of creating handles that will actually be good enough for a mug being π=0.1 or 0.25 than the prior models do, and put smaller probability on Miles' chances of creating handles that will actually be good enough for a mug being π=0.4 than the prior models do given that Miles only pulls 7 handles and only 1 of them is good enough for a mug. They all become less sure about the Miles' chances of creating handles that will actually be good enough for a mug.
+
+## Exercise 2.13
+
+a) I guess the posterior model of π is as follows:
+```{r}
+knitr::include_graphics("image/intolerance.png")
+```
+
+The survey Fatima does indicates that 58.75% (47/80) of the adults are lactose intolerant, the portion is between 0.5 and 0.6. So balanced by the likelihood and prior model, the posterior model of π will witness an increase in the chances put on the proportion of adults who are lactose intolerant with π being 0.5 and 0.6, a decrease in the chances put on the proportion of adults who are lactose intolerant with π being 0.7 and 0.4.
+
+b) 
+```{r}
+# Let Y be the number of adults who are lactose intolerant
+
+# prior model: f(π=0.4)=0.1, f(π=0.5)=0.2, f(π=0.6)=0.44, and f(π=0.7)=0.26
+
+# Likelihood model: L(π=0.4|y=47)=f(y=47|π=0.4)=80!/(47!*(80-47)!)*(0.4)^47*(1−0.4)^(80-47)=0.0003014292
+factorial(80)/(factorial(47)*factorial(33))*(0.4)^47*(0.6)^33
+
+# L(π=0.5|y=47)=f(y=47|π=0.5)=80!/(47!*(80-47)!)*(0.5)^47*(1−0.5)^(80-47)=0.02636179
+factorial(80)/(factorial(47)*factorial(33))*(0.5)^47*(0.5)^33
+
+# L(π=0.6|y=47)=f(y=47|π=0.6)=80!/(47!*(80-47)!)*(0.6)^47*(1−0.6)^(80-47)=0.08799601
+factorial(80)/(factorial(47)*factorial(33))*(0.6)^47*(0.4)^33
+
+#L(π=0.7|y=47)=f(y=47|π=0.7)=80!/(47!*(80-47)!)*(0.7)^47*(1−0.7)^(80-47)=0.009289317
+factorial(80)/(factorial(47)*factorial(33))*(0.7)^47*(0.3)^33
+
+#f(y=47)=L(π=0.4|y=47)*f(π=0.4)+L(π=0.5|y=47)*f(π=0.5)+L(π=0.6|y=47)*f(π=0.6)+L(π=0.7|y=47)*f(π=0.7)=0.04643597
+0.0003014292*0.1+0.02636179*0.2+0.08799601*0.44+0.009289317*0.26
+
+# posterior pmf of π, f(π|y=47)=f(π)L(π|y=47)/f(y=47) for π∈{0.4,0.5,0.6,0.7}.
+# f(π=0.4|y=47)=f(π=0.4)L(π=0.4|y=47)/f(y=47)=0.0006491287
+0.1*0.0003014292/0.04643597
+# f(π=0.5|y=47)=f(π=0.5)L(π=0.5|y=47)/f(y=47)=0.1135404
+0.2*0.02636179/0.04643597
+# f(π=0.6|y=47)=f(π=0.6)L(π=0.6|y=47)/f(y=47)=0.8337985
+0.44*0.08799601/0.04643597
+# f(π=0.7|y=47)=f(π=0.7)L(π=0.7|y=47)/f(y=47)=0.05201189
+0.26*0.009289317/0.04643597
+```
+The posterior model puts far more chances on the proportion of adults who are lactose intolerant with π being 0.6 compared to my guess in part a. Unlike my guess that an increase will occur in the chances put on the proportion of adults who are lactose intolerant with π being 0.5, the posterior model puts far smaller chances on the proportion of adults who are lactose intolerant with π being 0.5. The decreases for π=0.4 and π=0.7 in the posterior model is larger than the ones in my guess. π with other values of 0.4, 0.5, and 0.7 all witness decreases in the chances put on the proportion of adults who are lactose intolerant, among which the decrease for π=0.5 is relatively small, the decrease for π=0.7 is relatively larger, and the decrease for π=0.4 is the largest. 
+
+c) 
+```{r}
+# prior model: f(π=0.4)=0.1, f(π=0.5)=0.2, f(π=0.6)=0.44, and f(π=0.7)=0.26
+
+# Likelihood model: L(π=0.4|y=470)=f(y=470|π=0.4)=800!/(470!*(800-470)!)*(0.4)^470*(1−0.4)^(800-470)=factorial(800)/(factorial(470)*factorial(330))*(0.4)^470*(0.6)^330
+
+# L(π=0.5|y=470)=f(y=470|π=0.5)=800!/(470!*(800-470)!)*(0.5)^470*(1−0.5)^(800-470)=factorial(800)/(factorial(470)*factorial(330))*(0.5)^470*(0.5)^330
+
+# L(π=0.6|y=470)=f(y=470|π=0.6)=800!/(470!*(800-470)!)*(0.6)^470*(1−0.6)^(800-470)=factorial(800)/(factorial(470)*factorial(330))*(0.6)^470*(0.4)^330
+
+#L(π=0.7|y=470)=f(y=470|π=0.7)=800!/(470!*(800-470)!)*(0.7)^470*(1−0.7)^(800-470)=factorial(800)/(factorial(470)*factorial(330))*(0.7)^470*(0.3)^330
+
+#f(y=470)=L(π=0.4|y=470)*f(π=0.4)+L(π=0.5|y=470)*f(π=0.5)+L(π=0.6|y=470)*f(π=0.6)+L(π=0.7|y=470)*f(π=0.7)
+
+# posterior pmf of π, f(π|y=470)=f(π)L(π|y=470)/f(y=470) for π∈{0.4,0.5,0.6,0.7}.
+# f(π=0.4|y=47)=f(π=0.4)L(π=0.4|y=47)/f(y=47)
+
+# f(π=0.5|y=47)=f(π=0.5)L(π=0.5|y=47)/f(y=47)
+
+# f(π=0.6|y=47)=f(π=0.6)L(π=0.6|y=47)/f(y=47)
+
+# f(π=0.7|y=47)=f(π=0.7)L(π=0.7|y=47)/f(y=47)
+
+```
+If Fatima had instead collected a sample of 800 adults and 470 (keeping the sample proportion the same as above) are lactose intolerant, the posterior model will indicate a even larger increase in the proportion of adults who are lactose intolerant with π being 0.6 and more decreases in the proportion of adults who are lactose intolerant with π being 0.4, 0.5, and 0.7 than in part b. In other words, more probabilities cluster on the proportion of adults who are lactose intolerant being 0.6 and fewer probabilities are put on the rest values of π. The differences between  π of different values become more salient as the sample becomes more larger.
+
+## Exercise 2.14
+
+a) 
+```{r}
+knitr::include_graphics("image/bus.png")
+```
+b) 
+```{r}
+# prior model: f(π=0.15)=0.15, f(π=0.25)=0.15, f(π=0.5)=0.4, f(π=0.75)=0.15, and f(π=0.85)=0.15
+
+# Let Y be the times that the 8:30am bus was late
+
+# Likelihood model: L(π=0.15|y=3)=f(y=3|π=0.15)=13!/(3!*(13-3)!)*(0.15)^3*(1−0.15)^(13-3)=0.190033
+factorial(13)/(factorial(3)*factorial(10))*(0.15)^3*(0.85)^10
+
+# L(π=0.25|y=3)=f(y=3|π=0.25)=13!/(3!*(13-3)!)*(0.25)^3*(1−0.25)^(13-3)=0.251651
+factorial(13)/(factorial(3)*factorial(10))*(0.25)^3*(0.75)^10
+
+# L(π=0.5|y=3)=f(y=3|π=0.5)=13!/(3!*(13-3)!)*(0.5)^3*(1−0.5)^(13-3)=0.03491211
+factorial(13)/(factorial(3)*factorial(10))*(0.5)^3*(0.5)^10
+
+# L(π=0.75|y=3)=f(y=3|π=0.75)=13!/(3!*(13-3)!)*(0.75)^3*(1−0.75)^(13-3)=0.0001150668
+factorial(13)/(factorial(3)*factorial(10))*(0.75)^3*(0.25)^10
+
+# L(π=0.85|y=3)=f(y=3|π=0.85)=13!/(3!*(13-3)!)*(0.85)^3*(1−0.85)^(13-3)=1.012827e-06
+factorial(13)/(factorial(3)*factorial(10))*(0.85)^3*(0.15)^10
+
+#f(y=3)=L(π=0.15|y=3)*f(π=0.15)+L(π=0.25|y=3)*f(π=0.25)+L(π=0.5|y=3)*f(π=0.5)+L(π=0.75|y=3)*f(π=0.75)+L(π=0.85|y=3)*f(π=0.85)=0.08023486
+0.190033*0.15+0.15*0.251651+0.03491211*0.4+0.0001150668*0.15+0.15*(1.012827e-06)
+
+# posterior pmf of π, f(π|y=3)=f(π)L(π|y=3)/f(y=3) for π∈{0.15,0.25,0.5,0.75,0.85}.
+
+# f(π=0.15|y=3)=L(π=0.15|y=3)*f(π=0.15)/f(y=3)=0.3552689
+0.190033*0.15/0.08023486
+# f(π=0.25|y=3)=L(π=0.25|y=3)*f(π=0.25)/f(y=3)=0.4704645
+0.15*0.251651/0.08023486
+# f(π=0.5|y=3)=L(π=0.5|y=3)*f(π=0.5)/f(y=3)=0.1740496
+0.03491211*0.4/0.08023486
+# f(π=0.75|y=3)=L(π=0.75|y=3)*f(π=0.75)/f(y=3)=0.0002151187
+0.0001150668*0.15/0.08023486
+# f(π=0.85|y=3)=L(π=0.85|y=3)*f(π=0.85)/f(y=3)=1.893492e-06
+0.15*(1.012827e-06)/0.08023486
+```
+
+c)
+Li Qiang learnt that given that the 8:30am bus was late 3 times in 13 days, the late probability of the 8:30am bus being 0.85 has the smallest chances (1.893492e-06) while the late probability of the 8:30am bus being 0.25 has the largest chances (0.4704645). The late probabilities of the 8:30am bus being 0.5 and 0.75 have lower chances (0.1740496 and 0.0002151187 respectively) than commuters' expectation (0.4 and 0.15 respectively). The late probabilities of the 8:30am bus being 0.15 has higher chances (0.3552689) than commuters' expectation (0.15). Overall, the 8:30am bus was less likely to be late than what was modeled prior to the new data.
+
+## Exercise 2.15 
+a) If the previous researcher had been more sure that a hatchling would survive, the chances put on the success rates, π=0.7 and π=0.75, of cuckoo bird hatchlings that survive at least one week by the prior model would be higher while the chances put on the success rates, π=0.6 and π=0.65, of cuckoo bird hatchlings that survive at least one week by the prior model would be lower.
+
+b) If the previous researcher had been less sure that a hatchling would survive, the chances put on the success rates, π=0.7 and π=0.75, of cuckoo bird hatchlings that survive at least one week by the prior model would be even lower while the chances put on the success rates, π=0.6 and π=0.65, of cuckoo bird hatchlings that survive at least one week by the prior model would be even higher.
+
+c) Lisa collects some data. Among the 15 hatchlings she studied, 10 survived for at least one week. What is the posterior model for  π ?
+```{r}
+# prior model: f(π=0.6)=0.3, f(π=0.65)=0.4, f(π=0.7)=0.2, and f(π=0.75)=0.1
+# Let Y be the number of the hatchlings survived for at least one week
+
+# Likelihood model: L(π=0.6|y=10)=f(y=10|π=0.6)=15!/(10!*(15-10)!)*(0.6)^10*(1−0.6)^(15-10)=0.1859378
+factorial(15)/(factorial(10)*factorial(5))*(0.6)^10*(0.4)^5
+
+# L(π=0.65|y=10)=f(y=10|π=0.6)=15!/(10!*(15-10)!)*(0.6)^10*(1−0.6)^(15-10)=0.2123387
+factorial(15)/(factorial(10)*factorial(5))*(0.65)^10*(0.35)^5
+
+# L(π=0.7|y=10)=f(y=10|π=0.6)=15!/(10!*(15-10)!)*(0.6)^10*(1−0.6)^(15-10)=0.2061304
+factorial(15)/(factorial(10)*factorial(5))*(0.7)^10*(0.3)^5
+
+# L(π=0.75|y=10)=f(y=10|π=0.6)=15!/(10!*(15-10)!)*(0.6)^10*(1−0.6)^(15-10)=0.165146
+factorial(15)/(factorial(10)*factorial(5))*(0.75)^10*(0.25)^5
+
+
+#f(y=10)= L(π=0.6|y=10)*f(π=0.6)+L(π=0.65|y=10)*f(π=0.65)+L(π=0.7|y=10)*f(π=0.7)+L(π=0.75|y=10)*f(π=0.75)=0.1984575
+0.1859378*0.3+0.4*0.2123387+0.2061304*0.2+0.165146*0.1
+
+# posterior pmf of π, f(π|y=10)=f(π)L(π|y=10)/f(y=10) for π∈{0.6,0.65,0.7,0.75}.
+
+# f(π=0.6|y=10)=L(π=0.6|y=10)*f(π=0.6)/f(y=10)=0.2810745
+0.1859378*0.3/0.1984575
+# f(π=0.65|y=10)=L(π=0.65|y=10)*f(π=0.65)/f(y=10)=0.4279782
+0.2123387*0.4/0.1984575
+# f(π=0.7|y=10)=L(π=0.7|y=10)*f(π=0.7)/f(y=10)=0.2077325
+0.2061304*0.2/0.1984575
+# f(π=0.75|y=10)=L(π=0.75|y=10)*f(π=0.75)/f(y=10)=0.08321479
+0.165146*0.1/0.1984575
+```
+
+d)
+Using the Bayes' rule, Lisa found the posterior model of the success rate of cuckoo bird hatchlings that survive at least one week based on the prior probabilities speculated by a previous researcher and the her observation that 10 survived for at least one week among the 15 hatchlings she studied. The posterior model indicates there's about 28% chance that the success rate of cuckoo bird hatchlings that survive at least one week is 0.6, about 43% chance that the success rate of cuckoo bird hatchlings that survive at least one week is 0.65, about 21% chance that the success rate of cuckoo bird hatchlings that survive at least one week is 0.7, about 8% chance that the success rate of cuckoo bird hatchlings that survive at least one week is 0.75.
+
+## Exercise 2.16 
+a)
+```{r}
+knitr::include_graphics("image/art.png")
+```
+The values of π are drawn from several mentioned estimation rates in the article. Personally, I find the defence of Yann Walther is unsubstantiated in contrast to the Swiss art-research lab's claims based on scientific date-test using X-ray and black light. Also, there is the troublesome and widespread category of fakes which is copies of a work done at the same time or in the same era as the original, which are very hard to identify, as the canvas, paint, and even the technique are all of the correct period. Though Oliver Sears claims that "there is a difference between fakes and forgeries. Fakes are works by other artists that are passed off as works by more important artists. Forgeries are works made deliberately to resemble the real thing," these works no matter being fakes or forgeries, they are not authentic works. What is under dispute is that while museums are supposed to collect mostly authentic works, some art-world insiders say, museums, go along with the ruse so as not to alienate their important donors, and stick the dubious work in the basement. It shows that fake works are circulated with the connivance. But after all, there are procedures and institutions for authentication which makes the rate 0.9 a bit exaggerating. So I tend to put on the largest probabilities on π=0.7, a median
+probability on π=0.4, and the smallest probabilities on π=0.2 and π=0.9. 
+
+b) 
+We both put on a considerable probability on π=0.4, and relatively smaller probabilities on the extremes. But I include 4 rather than 3 values of π, and while I include π=0.7 and 0.9, the model below include 0.6 instead. Overall, my prior model indicates higher probabilities of larger proportions of museum artworks that are fake or forged.
+
+c) Suppose you randomly choose 10 artworks. Assuming the prior from part b, what is the minimum number of artworks that would need to be forged for  f(π=0.6|Y=y)>0.4?
+```{r}
+# prior model: f(π=0.2)=0.25, f(π=0.4)=0.5, and f(π=0.6)=0.25
+
+# Let Y be the number of the artworks are fake or forged
+
+# Likelihood model: L(π=0.6|Y=y)=f(y|π=0.6)=10!/(y!*(10-y)!)*(0.6)^10*(1−0.6)^(15-10)=0.1859378
+y <- c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+
+# f(y)=f(y|π=0.6)*f(π=0.6)+f(y|π=0.2)*f(π=0.2)+f(y|π=0.4)*f(π=0.4)=factorial(10)/(factorial(y)*factorial(10-y))*(0.6)^y*(0.4)^(10-y)*0.25+factorial(10)/(factorial(y)*factorial(10-y))*(0.2)^y*(0.8)^(10-y)*0.25+factorial(10)/(factorial(y)*factorial(10-y))*(0.4)^y*(0.6)^(10-y)*0.5
+
+# posterior model:
+# f(π=0.6|Y=y)=L(π=0.6|Y=y)*f(π=0.6)/f(Y=y)>0.4
+factorial(10)/(factorial(y)*factorial(10-y))*(0.6)^y*(0.4)^(10-y)*0.25/(factorial(10)/(factorial(y)*factorial(10-y))*(0.6)^y*(0.4)^(10-y)*0.25+factorial(10)/(factorial(y)*factorial(10-y))*(0.2)^y*(0.8)^(10-y)*0.25+factorial(10)/(factorial(y)*factorial(10-y))*(0.4)^y*(0.6)^(10-y)*0.5) >0.4
+```
+The minimum number of artworks that would need to be forged for  f(π=0.6|Y=y)>0.4 is 6.
+
+## Exercise 2.18
+```{r}
+library(dplyr)
+library(janitor)
+```
+
+```{r}
+# Define possible mold probabilities
+intolerance <- data.frame(pi = c(0.4, 0.5, 0.6, 0.7))
+
+# Define the prior model
+prior <- c(0.1, 0.2, 0.44, 0.26)
+```
+
+```{r}
+# Simulate 10000 values of pi from the prior
+set.seed(100)
+intolerance_sim <- sample_n(intolerance, size = 10000, weight = prior, replace = TRUE)
+```
+
+```{r}
+# Simulate 10000 match outcomes
+intolerance_sim <- intolerance_sim %>% 
+  mutate(y = rbinom(10000, size = 80, prob = pi))
+
+# Check it out
+intolerance_sim %>% 
+  head(4)
+```
+
+```{r}
+# Summarize the prior
+intolerance_sim %>% 
+  tabyl(pi) %>% 
+  adorn_totals("row")
+```
+
+```{r}
+# Focus on simulations with y = 47
+intolerance_forty_seven <- intolerance_sim %>% 
+  filter(y == 47)
+
+# Summarize the posterior approximation
+intolerance_forty_seven %>% 
+  tabyl(pi) %>% 
+  adorn_totals("row")
+```
+
+## Exercise 2.19 
+```{r}
+# Define possible win probabilities
+success_rate <- data.frame(pi = c(0.6, 0.65, 0.7, 0.75))
+
+# Define the prior model
+prior <- c(0.3, 0.4, 0.2, 0.1)
+```
+
+```{r}
+# Simulate 10000 values of pi from the prior
+set.seed(84735)
+success_rate_sim <- sample_n(success_rate, size = 10000, weight = prior, replace = TRUE)
+```
+
+```{r}
+# Simulate 10000 match outcomes
+success_rate_sim <- success_rate_sim %>% 
+  mutate(y = rbinom(10000, size = 15, prob = pi))
+
+# Check it out
+success_rate_sim %>% 
+  head(3)
+```
+
+```{r}
+# Summarize the prior
+success_rate_sim %>% 
+  tabyl(pi) %>% 
+  adorn_totals("row")
+```
+
+```{r}
+# Focus on simulations with y = 10
+success_ten <- success_rate_sim %>% 
+  filter(y == 10)
+
+# Summarize the posterior approximation
+success_ten %>% 
+  tabyl(pi) %>% 
+  adorn_totals("row")
+```
