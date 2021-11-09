@@ -1,0 +1,412 @@
+---
+title: "BR3"
+author: "Yue Gu"
+date: "9/30/2021"
+output: html_document
+---
+
+```{r}
+library(bayesrules)
+```
+
+```{r}
+library(tidyverse)
+```
+
+## Exercise 3.1
+a) 
+```{r}
+# E(π)=α/(α+β)≈0.40, so α/β≈2/3
+
+# π is between 0.2 and 0.6
+
+# In a trial and error process, I use plot_beta() in the bayesrules package to plot Beta models with α and β pairs that meet this constraint (e.g., Beta(2,3), Beta(4,6), Beta(8,12)). Among these, I find that the Beta(16,24) closely captures the typical outcomes and variability in the estimated chances.
+plot_beta(16, 24)
+```
+Beta(16, 24)
+
+b)
+```{r}
+# E(π)=α/(α+β)≈0.80, so α/β≈4
+
+# Var(π)=αβ/((α+β)^2(α+β+1)=0.05, so β=11/25, α=44/25
+
+plot_beta(44/25, 11/25)
+```
+Beta(44/25, 11/25)
+
+c)
+```{r}
+# E(π)=α/(α+β)≈0.90, so α/β≈9
+
+# π is between 0.85 and 1
+
+# In a trial and error process, I use plot_beta() in the bayesrules package to plot Beta models with α and β pairs that meet this constraint (e.g., Beta(9,1), Beta(27,3), Beta(45,5)). Among these, I find that the Beta(16,24) closely captures the typical outcomes and variability in the estimated chances.
+
+plot_beta(720,80)
+```
+Beta(720, 80)
+
+d) 
+```{r}
+# According to Sal, since she had no estimate based on the interviewer’s expression, it’s equally plausible for π to take on any value between 0 and 1. we can model π by the standard Uniform model Unif(0,1) which is a special case of Beta(α,β) when α=β=1.
+
+plot_beta(1,1)
+```
+Beta(1,1) or Unif(0,1)
+
+## Exercise 3.2 
+a) 
+```{r}
+# E(π)=α/(α+β)≈0.80, so α/β≈4
+
+# π is between 0.70 and 0.90
+
+# In a trial and error process, I use plot_beta() in the bayesrules package to plot Beta models with α and β pairs that meet this constraint (e.g., Beta(4,1), Beta(8,2), Beta(12,3)). Among these, I find that the Beta(180,45) closely captures the typical outcomes and variability in the estimated chances.
+
+plot_beta(180,45)
+```
+Beta(180,45)
+
+b)
+```{r}
+# E(π)=α/(α+β)≈0.90, so α/β≈9
+
+# Var(π)=αβ/((α+β)^2(α+β+1)=0.08, so β=1/80, α=9/80
+
+plot_beta(9/80,1/80)
+```
+Beta(9/80, 1/80)
+
+c) 
+```{r}
+# E(π)=α/(α+β)≈0.85, so α/β≈17/3
+
+# π is between 0.75 and 0.95
+
+# In a trial and error process, I use plot_beta() in the bayesrules package to plot Beta models with α and β pairs that meet this constraint (e.g., Beta(17,3), Beta(34,6), Beta(51,9)). Among these, I find that the Beta(204,36) closely captures the typical outcomes and variability in the estimated chances.
+
+plot_beta(204,36)
+```
+Beta(204,36)
+
+d)
+```{r}
+# E(π)=α/(α+β)≈0.3, so α/β≈3/7
+
+# The variability in  π is high for the Beta(α,β) model since Ben is pretty unsure about that guess, which makes α and β smaller.
+
+# In a trial and error process, I use plot_beta() in the bayesrules package to plot Beta models with α and β pairs that meet this constraint (e.g., Beta(1.5,3.5), Beta(3,7), Beta(4.5,10.5)). Among these, I find that the Beta(4.5,10.5) closely captures the typical outcomes and variability in the estimated chances.
+
+plot_beta(4.5,10.5)
+```
+Beta(4.5,10.5)
+
+## Exercise 3.3
+a) 
+```{r}
+# Since it’s equally plausible for π to take on any value between 0 and 1, we can model π by the standard Uniform model Unif(0,1) which is a special case of Beta(α,β) when α=β=1. So the appropriate Beta prior model is Unif(0,1) or Beta(1,1).
+
+plot_beta(1,1)
+```
+
+b) 
+$$E(π)=\frac{α}{(α+β)}=\frac{1}{1+1}=0.5$$
+
+The mean of the Beta prior that I specified in part a is 0.5. I think this aligns with having no clue because when α and β are equal, the Beta pdf is symmetric around a common mean of 0.5. The mean of the beta provides one measure of central tendency or what’s typical. When E(π)=0.5, it indicates no inclination toward lower or higher values of parameter π between 0 and 1 since the average value of 0 and 1 is 0.5. don't know anything other than the probability falls between o and 1. every value between o and 1 is equally plausible
+
+c)
+```{r}
+summarize_beta(1,1)
+```
+The standard deviation of the Beta prior that I specified is 0.2886751.
+
+d)
+```{r}
+summarize_beta(100,100)
+plot_beta(100,100)
+```
+Beta(100,100). Its standard deviation is 0.03526728.
+
+e)
+```{r}
+summarize_beta(0.1,0.1)
+plot_beta(0.1,0.1)
+```
+
+Beta(0.1,0.1). Its standard deviation is 0.4564355.
+
+## Exercise 3.4 
+(a): Beta(0.5,0.5)
+(b): Beta(2,2)
+(c): Beta(6,2)
+(d): Beta(1,1)
+(e): Beta(0.5,6)
+(f): Beta(6,6)
+
+## Exercise 3.5 
+(a): Beta(1,0.3)
+(b): Beta(3,3)
+(c): Beta(4,2)
+(d): Beta(2,1) 
+(e): Beta(5,6)
+(f): Beta(6,3)
+
+## Exercise 3.6
+a)
+```{r}
+knitr::include_graphics("image/beta_1.png")
+```
+
+As illustrated in the image (the means of π are represented by the blue solid vertical lines), α and β of the Beta are equal in (a), (b), (d), and (f), so the Beta pdfs are all symmetric around a common mean of 0.5. Also, since the Beta pdf is left skewed in (c), the mode exceeds the mean of π, and both are above 0.5. By contrast, since the Beta pdf is right skewed in (e), the mean exceeds the mode of π, and both are below 0.5. Therefore, Beta(0.5,6) in (e) has the smallest mean and Beta(6,2) in (c) has the biggest mean.
+  
+```{r}
+summarize_beta(0.5,0.5)
+summarize_beta(2,2)
+summarize_beta(6,2)
+summarize_beta(1,1)
+summarize_beta(0.5,6)
+summarize_beta(6,6)
+```
+
+The mean of Beta(0.5,0.5), Beta(2,2), Beta(1,1), Beta(6,6) are 0.5, the mean of Beta(6,2) is 0.75, and the mean of Beta(0.5,6) is 0.07692308.
+
+b) 
+```{r}
+knitr::include_graphics("image/beta_2.png")
+```
+As illustrated in the image above (the modes of π are represented by the blue dashed vertical lines), the mode of the Beta in (a) is {0,1}, the mode of the Beta in (b) is 0.5, the mode of the Beta in (c) is between 0.5 and 1, the mode of the Beta in (d) is any value of π in [0,1], the mode of the Beta in (e) is 0, and mode of the Beta in (f) is 0.5. Therefore, Beta(0.5,0.5) and Beta(0.5,6) in (a) and (e) have the smallest mode; and Beta(0.5,0.5) in (a) and (d) has the biggest mode.
+```{r}
+summarize_beta(0.5,0.5)
+summarize_beta(2,2)
+summarize_beta(6,2)
+summarize_beta(1,1)
+summarize_beta(0.5,6)
+summarize_beta(6,6)
+```
+The mode of Beta(0.5,0.5) is {0,1}, the mode of Beta(2,2) is 0.5, the mode of Beta(6,2) is 0.8333333, the mode of Beta(1,1) is any value in [0,1], the mode of Beta(0.5,6) is 0, and the mode of Beta(6,6) is 0.5.
+
+c) 
+```{r}
+knitr::include_graphics("image/beta_3.png")
+```
+As indicated in the image above (the standard deviations of π are represented by the orange solid vertical lines), Beta(0.5,6) in (e) has the smallest standard deviation. Beta(0.5,0.5) in (a) has the biggest standard deviation.
+```{r}
+summarize_beta(0.5,0.5)
+summarize_beta(2,2)
+summarize_beta(6,2)
+summarize_beta(1,1)
+summarize_beta(0.5,6)
+summarize_beta(6,6)
+```
+The standard deviation of Beta(0.5,0.5) is 0.3535534, the standard deviation of Beta(2,2) is 0.2236068, the standard deviation of Beta(6,2) is 0.1443376, the standard deviation of Beta(1,1) is 0.2886751, the standard deviation of Beta(0.5,6) is 0.09730085, and the standard deviation of Beta(6,6) is 0.138675.
+
+## Exercise 3.7
+a)
+```{r}
+plot_beta(0.5,0.5)
+plot_beta(2,2)
+plot_beta(6,2)
+plot_beta(1,1)
+plot_beta(0.5,6)
+plot_beta(6,6)
+```
+
+b)
+```{r}
+summarize_beta(0.5,0.5)
+summarize_beta(2,2)
+summarize_beta(6,2)
+summarize_beta(1,1)
+summarize_beta(0.5,6)
+summarize_beta(6,6)
+```
+
+## Exercise 3.9 
+a)
+```{r}
+summarize_beta(8,2)
+summarize_beta(1,20)
+```
+b)
+```{r}
+plot_beta(8,2)
+plot_beta(1,20)
+
+```
+
+c) 
+The first salesperson who works in North Dakota believes that a higher proportion of U.S. residents are likely to call a sweet carbonated drink "pop" than the second salesperson who works in Louisiana does (E(π) and Mode(π) of the Beta(8,2) prior are both larger than E(π) and Mode(π) of the Beta(1,20) prior).
+
+## Exercise 3.10
+a) 
+```{r}
+# The first salesperson who works in North Dakota
+summarize_beta_binomial(8,2, y = 12, n = 50)
+```
+```{r}
+# The second salesperson who works in Louisiana
+summarize_beta_binomial(1,20, y = 12, n = 50)
+```
+
+b)
+```{r}
+# The first salesperson who works in North Dakota
+plot_beta(8,2)
+plot_binomial_likelihood(12,50)
+plot_beta_binomial(8,2,12,50)
+```
+```{r}
+# The second salesperson who works in Louisiana
+plot_beta(1,20)
+plot_binomial_likelihood(12,50)
+plot_beta_binomial(1,20,12,50)
+```
+c)
+For the first salesperson who works in North Dakota after observing that 12 out of 50 U.S. residents prefer the term “pop" from the poll, he/she become less confident in the plausibility of a high proportion of U.S. residents that call a sweet carbonated drink "pop" than before; for the second salesperson who works in Louisiana after observing that 12 out of 50 U.S. residents prefer the term “pop" from the poll, he/she become more confident in the plausibility of a high proportion of U.S. residents that call a sweet carbonated drink "pop" than before. 
+
+Overall, the first salesperson who works in North Dakota is still more confident in the plausibility of a high proportion of U.S. residents that call a sweet carbonated drink "pop" than the second salesperson who works in Louisiana is. In the posterior model, the first salesperson's average estimate of the plausibility of a proportion of U.S. residents that call a sweet carbonated drink "pop" is around 0.34 while the second salesperson's average estimate of the plausibility of a proportion of U.S. residents that call a sweet carbonated drink "pop" is around 0.18.
+
+## Exercise 3.11 
+a) 
+```{r}
+# Since E(π)=α/(α+β)=1/4, Mode(π)=(α-1)/(α+β-2)=5/22, α=6, β=18
+plot_beta(6, 18)
+```
+Thus prior Beta model is Beta(6,18).
+
+b)
+```{r}
+plot_beta_binomial(alpha = 6, beta = 18, y = 15, n = 50)
+summarize_beta_binomial(alpha = 6, beta = 18, y = 15, n = 50)
+```
+The posterior model for π is Beta(21,53).
+
+c) 
+The mean is 0.2837838, the mode is 0.2777778, and the standard deviation is 0.05205773.
+
+d) 
+The posterior model more closely reflects the data than the prior information since the overlap between the likelihood binomial distribution and posterior distribution is larger than that between the prior beta distribution and posterior distribution as illustrated in part b.
+
+## Exercise 3.12
+a)
+```{r}
+# E(π)=α/(α+β)≈0.15, so α/β≈3/17
+
+# π is between 0.10 and 0.25
+
+# In a trial and error process, I use plot_beta() in the bayesrules package to plot Beta models with α and β pairs that meet this constraint (e.g., Beta(3,17), Beta(6,34), Beta(9,51)). Among these, I find that the Beta(39,221) closely captures the typical outcomes and variability in the estimated chances.
+
+plot_beta(39,221)
+```
+Beta(39,221)
+
+b)
+```{r}
+summarize_beta_binomial(39,221,30,90)
+```
+The posterior model for π is Beta(69,281).
+
+c) 
+As shown in the part (b), the posterior mean of π is 0.1971429, the posterior mode of π is 0.1954023, and the posterior standard deviation of π is 0.02123519.
+
+d)
+```{r}
+plot_beta_binomial(39,221,30,90)
+```
+The posterior model more closely reflects the prior information more than the data since the overlap between the likelihood binomial distribution and posterior distribution is smaller than that between the prior beta distribution and posterior distribution as illustrated in the plot above.
+
+## Exercise 3.13 
+a) 
+```{r}
+# According to the description, it is likely that in 2020s, E(π)=α/(α+β)>0.3, so α/β>3/7
+
+# π is between 0.35 and 0.60
+
+# In a trial and error process, I use plot_beta() in the bayesrules package to plot Beta models with α and β pairs that meet this constraint (e.g., Beta(60,63), Beta(63,70), Beta(65,77)). Among these, I find that the Beta(65,77) closely captures the typical outcomes and variability in the estimated chances.
+
+plot_beta(65,77)
+```
+b) 
+```{r}
+summarize_beta_binomial(65,77,80,200)
+```
+The posterior model for  π is Beta(145,197).
+```{r}
+plot_beta_binomial(65,77,80,200)
+```
+c)
+As shown in the part (b), the posterior mean of π is 0.4239766, the posterior mode of π is 0.4235294, and the posterior standard deviation of π is 0.02668357.
+
+d)
+The mean of the prior Beta model is smaller than the mean of the posterior Beta model while the mode of the prior Beta model is larger than the mode of the posterior Beta model. The standard deviation of the prior Beta model is bigger than the standard deviation of the posterior Beta model. So the prior Beta model is more diffuse than the posterior Beta model which means the values of π deviate more from the mean E(π) for the prior Beta model than for the posterior Beta model.
+
+## Exercise 3.14
+```{r}
+# In the prior model of π, α=2, β=3
+# Since the posterior model of π given an observed Y=y successes in n trials is Beta(α+y,β+n−y), 2+y=11, y=9, 3+n-9=24, n=30.
+summarize_beta_binomial(2,3,9,30)
+```
+
+## Exercise 3.15
+```{r}
+# In the prior model of π, α=1, β=2
+# Since the posterior model of π given an observed Y=y successes in n trials is Beta(α+y,β+n−y), 1+y=100, y=99, 2+n-99=3, n=100.
+summarize_beta_binomial(1,2,99,100)
+```
+
+## Exercise 3.16
+a) 
+The prior model compare the plausibility of different values of π: the greater f(π), the more plausible the corresponding value of π. It indicates that π is most likely around 0.98 but could reasonably range from 0.875 to 1. The likelihood function provides insight into the relative compatibility of the observed data with different π∈[0,1]. The fact that L(π|y) is maximized when π=0.21 suggests that Y=y number of n trials is most likely when π=0.21. The further that a hypothetical π value is from 0.21, the less likely we would be to observe data result, L(π|y) effectively drops to 0 for π values under 0.03 and above 0.5. Thus, it’s extremely unlikely that we would’ve observed a y/n rate in the trials if, in fact, π were as low as 3% or as high as 50%. Overall, the prior model indicates a higher plausibility of higher values of π than the likelihood function does.
+
+b) The posterior model indicates that π is most likely around 0.75 but could reasonably range from 0.625 to 0.875. It more closely agrees with the prior than the data.
+
+c)
+```{r}
+# For the prior model, it is likely that E(π)=α/(α+β)≈0.98, so α/β≈49.
+plot_beta(98,2)
+
+# For the likelihood function, it is mostly likely that y/n≈0.21 and 0.03 < y/n <0.5.
+plot_binomial_likelihood(21,100)
+
+# For the posterior model, π is between 0.625 and 0.875.
+
+plot_beta_binomial(98,2,21,100)
+```
+
+## Exercise 3.17 
+a) The prior model compare the plausibility of different values of π: the greater f(π), the more plausible the corresponding value of π. It indicates that π is most likely around 0.5 but could reasonably range from 0 to 1. The likelihood function provides insight into the relative compatibility of the observed data with different π∈[0,1]. The fact that L(π|y) is maximized when π=0.1 suggests that Y=y number of n trials is most likely when π=0.1. The further that a hypothetical π value is from 0.1, the less likely we would be to observe data result, L(π|y) effectively drops to 0 for π values under 0 and above 0.375. Thus, it’s extremely unlikely that we would’ve observed a y/n rate in the trials if, in fact, π were as low as 0 or as high as 37.5%. Overall, the prior model indicates a higher plausibility of higher values of π than the likelihood function does.
+
+b) The posterior model indicates that π is most likely around 0.14 but could reasonably range from 0 to 0.4375. It more closely agrees with the data than the prior.
+
+c)
+```{r}
+# For the prior model, it is likely that E(π)=α/(α+β)≈0.5, so α/β≈1.
+plot_beta(3,3)
+
+# For the likelihood function, it is mostly likely that y/n≈0.10 and 0 < y/n <0.375.
+plot_binomial_likelihood(5,45)
+
+# For the posterior model, π is between 0.625 and 0.875.
+
+plot_beta_binomial(3,3,5,45)
+```
+
+## Exercise 3.18
+a) 
+```{r}
+summarize_beta_binomial(3,3,30,40)
+```
+```{r}
+plot_beta_binomial(3,3,30,40)
+```
+b)
+```{r}
+summarize_beta_binomial(3,3,15,20)
+```
+```{r}
+plot_beta_binomial(3,3,15,20)
+```
+
+c) Both Patrick's and Harold’s posterior models more closely agree with the data than the prior. Both Patrick's and Harold’s posterior models it is unlikely that given we would’ve observed in the survey if π were as high as 1. Patrick’s posterior model indicates that π is most likely around 0.717 but could reasonably range from 0.375 to 1. Harold’s posterior models indicates that π is most likely around 0.692 but could reasonably range from 0.25 to 1. Overall, Patrick's and Harold’s posterior models indicate a higher probability that someone in Patrick's town attended a protest in June 2020 than ones in Harold's town did.
+
